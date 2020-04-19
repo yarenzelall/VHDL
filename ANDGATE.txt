@@ -1,0 +1,22 @@
+
+-- AND DEVRESI
+-- 18/04/20
+-- GIRIS. A,B,C
+-- CIKIS. F
+-----------------------
+
+Library IEEE;
+Use IEEE.STD_LOGIC_1164.all;
+
+Entity ANDGATE is
+PORT(   A: IN STD_LOGIC;
+	B: IN STD_LOGIC;
+	C: IN STD_LOGIC;
+	F: OUT STD_LOGIC);
+End ANDGATE;
+
+Architecture behv of ANDGATE is 
+Begin 
+	F <= A AND B AND C;
+End Behv;
+

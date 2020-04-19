@@ -1,0 +1,63 @@
+-- CAMASIR MAKINESI 
+-- 18/04/2020
+-- YAREN ZELAL TOSU
+-- PORTLAR
+-- t, X : GIRIS
+-- Z : ÇIKIS
+---------------------------------------- 
+Library IEEE;
+Use IEEE.std_logic_1164.all;
+
+Entity makine is
+Port( t: IN std_logic; -- saat
+      X: IN std_logic_vector(1 downto 0);
+      Z: OUT std_logic);
+End makine;
+
+
+Architecture Behv of makine is
+
+Type SemDurumlar is (BSL,YK,DRL,SKM);
+Signal dSimdi : SemDurumlar := BSL; 
+
+Begin
+
+  Process(t)
+  Begin
+
+     If(Rising_edge(t)) then
+
+     Case dSimdi is
+
+     When BSL =>
+      If( X= "00") then 
+	  Z <= '0' ; -- bitmedi
+	  dSimdi <= YK ;
+      Elsif( X= "01") then 
+	     dSimdi <= DRL ;
+      Elsif( X= "10") then 
+	     dSimdi <= SKM ;
+      End if ;
+
+
+     When YK =>
+       If( X= "01") then 
+	   Z <= '0' ;
+	   dSimdi <= DRL ;
+       End if ;
+
+
+     When DRL =>
+       If( X= "10") then 
+	   Z <= '0' ;
+	   dSimdi <= SKM ;
+       End if ;
+
+
+     When SKM =>
+        Z <= '1' ;
+      
+     End Case ;
+     End if ;
+End process;
+End Behv ;
